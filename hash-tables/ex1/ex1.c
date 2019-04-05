@@ -6,9 +6,30 @@
 Answer *get_indices_of_item_weights(int *weights, int length, int limit)
 {
   HashTable *ht = create_hash_table(16);
+  for (int i = 0; i < length; i++)
+  {
+    int weight = weights[i];
 
+    // if compliment has been stored
+    int compliment = hash_table_retrieve(ht, weight);
+
+    printf("compliment %d, weight: %d \n", compliment, weight);
+    if (compliment + weight == limit)
+    {
+      // return answer
+      Answer * ans = sizeof(Answer);
+      ans->index_1 = compliment;
+      ans->index_2 = weight;
+      return ans;
+    }
+    else
+    {
+      // store comp with index
+      // key is weight comp, value is index
+      hash_table_insert(ht, limit - weight, i);
+    }
+  }
   // YOUR CODE HERE
-
   return NULL;
 }
 
