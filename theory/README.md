@@ -64,14 +64,16 @@ How can you represent the SUM and CARRY of adding THREE digits with a truth tabl
 ```
 A     B     C      carry   sum
 --------------------------------
-0     0     0        ?      ?
-0     0     1        ?      ?
-0     1     0        ?      ?
-0     1     1        ?      ?
-1     0     0        ?      ?
-1     0     1        ?      ?
-1     1     0        ?      ?
-1     1     1        ?      ?
+0     0     0        0      0
+0     0     1        0      1
+0     1     0        0      1
+0     1     1        1      0
+1     0     0        0      1
+1     0     1        1      0
+1     1     0        1      0
+1     1     1        1      1
 ```
-* SUM = ?
-* CARRY = ?
+I don't think my sum equation is right
+* SUM = A xor B || B xor C || C xor A
+
+* CARRY = A and B || B and C || A and C
