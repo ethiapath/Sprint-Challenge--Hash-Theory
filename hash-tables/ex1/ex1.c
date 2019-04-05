@@ -5,21 +5,23 @@
 
 Answer *get_indices_of_item_weights(int *weights, int length, int limit)
 {
+  // YOUR CODE HERE
   HashTable *ht = create_hash_table(16);
   for (int i = 0; i < length; i++)
   {
     int weight = weights[i];
 
     // if compliment has been stored
-    int compliment = hash_table_retrieve(ht, weight);
+    int compliment_i = hash_table_retrieve(ht, weight);
+    // hash_table_insert(ht, limit - weight, i);
 
-    printf("compliment %d, weight: %d \n", compliment, weight);
-    if (compliment + weight == limit)
+    printf("compliment %d, weight: %d \n", compliment_i, weight);
+    if (weights[compliment_i] + weight == limit)
     {
       // return answer
-      Answer * ans = sizeof(Answer);
-      ans->index_1 = compliment;
-      ans->index_2 = weight;
+      Answer * ans = malloc(sizeof(Answer));
+      ans->index_1 = i;
+      ans->index_2 = compliment_i;
       return ans;
     }
     else
@@ -29,7 +31,6 @@ Answer *get_indices_of_item_weights(int *weights, int length, int limit)
       hash_table_insert(ht, limit - weight, i);
     }
   }
-  // YOUR CODE HERE
   return NULL;
 }
 
