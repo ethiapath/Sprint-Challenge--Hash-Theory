@@ -11,6 +11,31 @@ char **reconstruct_trip(Ticket **tickets, int length)
 
   // YOUR CODE HERE
 
+  // load sources to destinations into
+  // hash table as keys to values
+  for (int i = 0; i < length; i++)
+  {
+    // printf("Loading s:%s, d:%s into ht\n", tickets[i]->source, tickets[i]->destination);
+    hash_table_insert(ht, tickets[i]->source, tickets[i]->destination);
+    // hash_table_insert(ht, tickets[i]->destination, tickets[i]->source);
+  }
+  
+  // starting with start ticket loop through
+  // hash table getting the next value from 
+  // the previous destination and add it to the
+  // route char* array
+  
+  // char * prev;// = calloc(128, sizeof(char));
+  // prev = strdup(hash_table_retrieve(ht, "NONE"));
+  route[0] = strdup(hash_table_retrieve(ht, "NONE"));
+  // printf("starting %s\n", prev);
+  for (int i = 1; i < length; i++)
+  {
+    route[i] = strdup(hash_table_retrieve(ht, route[i-1]));
+    // printf("current: %s, prev: %s\n", route[i], route[i-1]);
+    // prev = strdup(hash_table_retrieve(ht, route[i]));
+  }
+
   return route;
 }
 
@@ -20,8 +45,6 @@ void print_route(char **route, int length)
     printf("%s\n", route[i]);
   }
 }
-
-
 
 #ifndef TESTING
 int main(void)
@@ -39,12 +62,18 @@ int main(void)
   ticket_2->destination = "DCA";
   tickets[1] = ticket_2;
 
+  // Ticket *ticket_3 = malloc(sizeof(Ticket));
+  // ticket_3->source = "LAX";
+  // ticket_3->destination = "DCA";
+  // tickets[2] = ticket_3;
+
+
   Ticket *ticket_3 = malloc(sizeof(Ticket));
   ticket_3->source = "DCA";
   ticket_3->destination = "NONE";
   tickets[2] = ticket_3;
 
-  print_route(reconstruct_trip(tickets, 3), 3); // PDX, DCA, NONE
+  print_route(reconstruct_trip(tickets, 3), 3); // PDX, LAX, DCA, NONE
 
   return 0;
 }
