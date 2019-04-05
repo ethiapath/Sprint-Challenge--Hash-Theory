@@ -11,6 +11,26 @@ char **reconstruct_trip(Ticket **tickets, int length)
 
   // YOUR CODE HERE
 
+  // load sources to destinations into
+  // hash table as keys to values
+  for (int i = 0; i < length; i++)
+  {
+    hash_table_insert(ht, tickets[i]->source, tickets[i]->destination);
+    // hash_table_insert(ht, tickets[i]->destination, tickets[i]->source);
+  }
+  
+  // starting with start ticket loop through
+  // hash table getting the next value from 
+  // the previous destination and add it to the
+  // route char* array
+  char * prev = calloc(128, sizeof(char));
+  prev = hash_table_retrieve(ht, "NONE");
+  for (int i = 0; i < length; i++)
+  {
+    route[i] = strdup(hash_table_retrieve(ht, prev));
+    prev = hash_table_retrieve(ht, prev);
+  }
+
   return route;
 }
 

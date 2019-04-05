@@ -63,6 +63,7 @@ int main(void)
   print_answer(answer_3);  // {3, 1}
 
   // TEST 4
+  // this test doesn't return 6 as the right answer
   int weights_4[] = {12, 6, 7, 14, 19, 3, 0, 25, 40};
   Answer* answer_4 = get_indices_of_item_weights(weights_4, 9, 7);
   print_answer(answer_4);  // {6, 2}
