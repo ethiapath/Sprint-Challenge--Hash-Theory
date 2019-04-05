@@ -25,10 +25,11 @@ char **reconstruct_trip(Ticket **tickets, int length)
   // route char* array
   char * prev = calloc(128, sizeof(char));
   prev = hash_table_retrieve(ht, "NONE");
-  for (int i = 0; i < length; i++)
+  route[0] = strdup(hash_table_retrieve(ht, prev));
+  for (int i = 1; i < length; i++)
   {
+    prev = hash_table_retrieve(ht, route[i-1]);
     route[i] = strdup(hash_table_retrieve(ht, prev));
-    prev = hash_table_retrieve(ht, prev);
   }
 
   return route;
